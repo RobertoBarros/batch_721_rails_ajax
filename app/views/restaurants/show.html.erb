@@ -1,0 +1,23 @@
+<h1><%= @restaurant.name %> <small><%= @restaurant.address %></small></h1>
+
+<p><%= link_to 'Restaurant List', restaurants_path %></p>
+
+<h2>
+  <%= pluralize @restaurant.reviews.size, "review" %>
+</h2>
+
+<div id="reviews">
+  <% if @restaurant.reviews.blank? %>
+    Be the first to leave a review for <%= @restaurant.name %>
+  <% else %>
+    <% @restaurant.reviews.each do |review| %>
+      <p><%= review.content %></p>
+    <% end %>
+  <% end %>
+</div>
+
+
+<%= simple_form_for([ @restaurant, @review ]) do |f| %>
+  <%= f.input :content, as: :text %>
+  <%= f.button :submit, nil, class: 'btn btn-primary' %>
+<% end %>
